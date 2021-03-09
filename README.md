@@ -26,5 +26,5 @@ name (allowed values): Description
 ### Client options
 canary (true/false): When set to true the canary api will be used. (Standard is false)
 ### Send options
-from (string): Shown on Bubblez as the 'device' the message was sent from.
+from (string): Shown on Bubblez as the 'device' the message was sent from.  
 locked (true/false): When set to true the sent message will be locked. (Standard is false)
