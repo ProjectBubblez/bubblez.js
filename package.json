@@ -1,0 +1,22 @@
+{
+  "name": "bubblez.js",
+  "version": "1.0.0",
+  "description": "A library to easily use the bubblez api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectBubblez/bubblez.js.git"
+  },
+  "author": "ProjectBubblez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ProjectBubblez/bubblez.js/issues"
+  },
+  "homepage": "https://github.com/ProjectBubblez/bubblez.js#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
