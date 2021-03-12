@@ -18,7 +18,7 @@ class client{
         }
     }
 
-    send(message, options){
+    async send(message, options){
         let params = new URLSearchParams();
         if(options != undefined){
             if(options.from != undefined){
@@ -36,11 +36,33 @@ class client{
             params.append('post', message);
         }
         params.append('token', this.token);
-        fetch(`${this.apiurl}sendpost`, {
+        let fetchdata = await fetch(`${this.apiurl}sendpost`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        });
+        }).then(r => r.json());
+        return fetchdata;
+    }
+
+    async reply(postid, message){
+        let params = new URLSearchParams();
+        if(!postid){
+            throw Error("Bubblez.js error: No postid declared")
+        }else{
+            params.append('postid', postid);
+        }
+        if(!message){
+            throw Error("Bubblez.js error: No message declared")
+        }else{
+            params.append('reply', message);
+        }
+        params.append('token', this.token);
+        let fetchdata = await fetch(`${this.apiurl}sendreply`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        return fetchdata;
     }
 }
 

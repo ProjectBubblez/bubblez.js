@@ -21,6 +21,10 @@ Also here the options can be removed if you don't want to use any options
 ```javascript
 client.send("message here", { options });
 ```
+To send a reply use the below code, replace "0" with the postid and "reply here" with the reply you want to send.
+```javascript
+client.reply(0, "message here");
+```
 ## Valid options
 name (allowed values): Description
 ### Client options

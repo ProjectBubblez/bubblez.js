@@ -1,3 +1,3 @@
 module.exports = {
-    client: require('./client.js')
+    client: require('./client/index.js')
 };
