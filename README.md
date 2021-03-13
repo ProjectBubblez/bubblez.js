@@ -14,7 +14,13 @@ Use the below code to start a client, replace "token here" with your api token.
 The options can be removed if you don't want to use any options.
 ```javascript
 const bubblez = require('bubblez.js');
-const client = new bubblez.client("token here", { options });
+const client = new bubblez.client({ options });
+
+client.once('ready', user => {
+    console.log("Logged in as: " + user.username);
+});
+
+client.login("token here");
 ```
 To send a message to Bubblez use the below code, replace "message here" with the message you want to send.
 Also here the options can be removed if you don't want to use any options
@@ -24,6 +30,10 @@ client.send("message here", { options });
 To send a reply use the below code, replace "0" with the postid and "reply here" with the reply you want to send.
 ```javascript
 client.reply(0, "message here");
+```
+To get info from a specific user use the below code, replace "username here" with the username you want to get information from.
+```javascript
+client.getUser("username here");
 ```
 ## Valid options
 name (allowed values): Description

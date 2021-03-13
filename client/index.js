@@ -7,12 +7,11 @@ class client extends EventEmitter{
         super();
         if(options != undefined){
             if(options.canary == true){
-                this.apiurl = 'https://canary.bubblez.app/api/';
-            }else{
-                this.apiurl = 'https://bubblez.app/api/';
+                this.apiurl = 'https://canary.bubblez.app/api/v1/';
             }
-        }else{
-            this.apiurl = 'https://bubblez.app/api/';
+        }
+        if(!this.apiurl){
+            this.apiurl = 'https://bubblez.app/api/v1/';
         }
     }
 
@@ -39,6 +38,9 @@ class client extends EventEmitter{
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
         return fetchdata;
     }
 
@@ -60,6 +62,9 @@ class client extends EventEmitter{
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
         return fetchdata;
     }
 
@@ -75,9 +80,8 @@ class client extends EventEmitter{
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(r => r.json());
-        console.log(fetchdata);
         if(fetchdata.error != undefined){
-            throw Error("Bubblez.js error: Invalid token");
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
         }
         return fetchdata;
     }
@@ -94,7 +98,7 @@ class client extends EventEmitter{
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(r => r.json());
         if(fetchdata.error != undefined){
-            throw Error("Bubblez.js error: Invalid token");
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
         }
         this.token = token;
         this.emit("ready", fetchdata);
