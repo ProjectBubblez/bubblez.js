@@ -1,12 +1,10 @@
 const fetch = require('node-fetch');
 const { URLSearchParams } = require('url');
+const EventEmitter = require('events');
 
-class client{
-    constructor(token, options){
-        if(!token){
-            throw Error("Bubblez.js error: No token received");
-        }
-        this.token = token;
+class client extends EventEmitter{
+    constructor(options){
+        super();
         if(options != undefined){
             if(options.canary == true){
                 this.apiurl = 'https://canary.bubblez.app/api/';
@@ -31,7 +29,7 @@ class client{
             }
         }
         if(!message){
-            throw Error("Bubblez.js error: No message declared")
+            throw Error("Bubblez.js error: No message declared");
         }else{
             params.append('post', message);
         }
@@ -47,12 +45,12 @@ class client{
     async reply(postid, message){
         let params = new URLSearchParams();
         if(!postid){
-            throw Error("Bubblez.js error: No postid declared")
+            throw Error("Bubblez.js error: No postid declared");
         }else{
             params.append('postid', postid);
         }
         if(!message){
-            throw Error("Bubblez.js error: No message declared")
+            throw Error("Bubblez.js error: No message declared");
         }else{
             params.append('reply', message);
         }
@@ -63,6 +61,43 @@ class client{
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(r => r.json());
         return fetchdata;
+    }
+
+    async getUser(username){
+        if(!username){
+            throw Error("Bubblez.js error: No username declared");
+        }
+        let params = new URLSearchParams();
+        params.append('username', username);
+        params.append('token', this.token);
+        let fetchdata = await fetch(`${this.apiurl}getuser`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        console.log(fetchdata);
+        if(fetchdata.error != undefined){
+            throw Error("Bubblez.js error: Invalid token");
+        }
+        return fetchdata;
+    }
+
+    async login(token){
+        if(!token){
+            throw Error("Bubblez.js error: No token received");
+        }
+        let params = new URLSearchParams();
+        params.append('token', token);
+        let fetchdata = await fetch(`${this.apiurl}checktoken`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error("Bubblez.js error: Invalid token");
+        }
+        this.token = token;
+        this.emit("ready", fetchdata);
     }
 }
 
