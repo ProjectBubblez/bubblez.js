@@ -141,6 +141,18 @@ Return example:
   ]
 }
 ```
+### latestPost
+Returns the postid of the newest post.
+```javascript
+client.latestPost();
+```
+Return example:
+```json
+{
+    "200": "latest Post",
+    "postid": "446"
+}
+```
 ### login
 Check if your token is valid and then set the token for being used in the apirequests.
 Without running this command successfully all api requests will fail due to invalid token.

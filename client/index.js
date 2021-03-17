@@ -123,6 +123,20 @@ class client extends EventEmitter{
         return fetchdata;
     }
 
+    async latestPost(){
+        let params = new URLSearchParams();
+        params.append('token', this.token);
+        let fetchdata = await fetch(`${this.apiurl}latestpost`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
+        return fetchdata;
+    }
+
     async login(token){
         if(!token){
             throw Error("Bubblez.js error: No token received");
