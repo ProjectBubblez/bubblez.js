@@ -24,4 +24,4 @@ client.once('ready', user => {
 
 client.login("token here");
 ```
-For documentation look in DOCUMENTATION.md
+For documentation look at our [wiki](https://github.com/ProjectBubblez/bubblez.js/wiki)
