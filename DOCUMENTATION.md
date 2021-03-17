@@ -4,7 +4,7 @@ All functions, how to use them, and what they return is shown in this file.
 ## client
 ### constructor
 Declare client variable.
-Options is optional.  
+Options are optional.  
 Valid options are:  
 canary (true/false, standard is false): When set to true the canary api will be used.
 ```javascript
@@ -12,7 +12,7 @@ const client = new bubblez.client({ options });
 ```
 ### send
 Send a post to bubblez.
-Options is optional.  
+Options are optional.  
 Valid options are:  
 locked (true/false, standard is false): If the post is locked, no-one can reply to the message.  
 from (string): Shows behind the send date on a post.
@@ -31,7 +31,7 @@ Return example:
 ```
 ### reply
 To send a reply use the below code, replace "1" with the postid and "reply here" with the reply you want to send.
-Options is optional.  
+Options are optional.  
 Valid options are:  
 from (string): Shows behind the send date on a post.
 ```javascript
