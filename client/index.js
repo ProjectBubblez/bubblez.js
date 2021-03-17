@@ -44,8 +44,13 @@ class client extends EventEmitter{
         return fetchdata;
     }
 
-    async reply(postid, message){
+    async reply(postid, message, options){
         let params = new URLSearchParams();
+        if(options != undefined){
+            if(options.from != undefined){
+                params.append('from', options.from);
+            }
+        }
         if(!postid){
             throw Error("Bubblez.js error: No postid declared");
         }else{
@@ -76,6 +81,38 @@ class client extends EventEmitter{
         params.append('username', username);
         params.append('token', this.token);
         let fetchdata = await fetch(`${this.apiurl}getuser`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
+        return fetchdata;
+    }
+
+    async getPost(postid){
+        if(!postid){
+            throw Error("Bubblez.js error: No postid declared");
+        }
+        let params = new URLSearchParams();
+        params.append('postid', postid);
+        params.append('token', this.token);
+        let fetchdata = await fetch(`${this.apiurl}getpost`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
+        return fetchdata;
+    }
+
+    async getTokenUser(){
+        let params = new URLSearchParams();
+        params.append('token', this.token);
+        let fetchdata = await fetch(`${this.apiurl}checkuser`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
