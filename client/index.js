@@ -16,6 +16,7 @@ class client extends EventEmitter{
     }
 
     async send(message, options){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();
         if(!message){
             throw Error("Bubblez.js error: No message declared");
@@ -49,6 +50,7 @@ class client extends EventEmitter{
     }
 
     async reply(postid, message, options){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();
         if(typeof(options) != "undefined" && typeof(options) != "object") throw TypeError(`Bubblez.js: "options" variable is ${typeof(options)}, expected object or undefined`);
         if(options != undefined){
@@ -82,6 +84,7 @@ class client extends EventEmitter{
     }
 
     async getUser(username){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         if(!username){
             throw Error("Bubblez.js error: No username declared");
         }
@@ -101,6 +104,7 @@ class client extends EventEmitter{
     }
 
     async getPost(postid){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         if(!postid){
             throw Error("Bubblez.js error: No postid declared");
         }
@@ -120,6 +124,7 @@ class client extends EventEmitter{
     }
 
     async getTokenUser(){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();
         params.append('token', this.token);
         let fetchdata = await fetch(`${this.apiurl}checkuser`, {
@@ -134,6 +139,7 @@ class client extends EventEmitter{
     }
 
     async latestPost(){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();
         params.append('token', this.token);
         let fetchdata = await fetch(`${this.apiurl}latestpost`, {
