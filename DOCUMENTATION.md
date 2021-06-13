@@ -6,7 +6,12 @@ All functions, how to use them, and what they return is shown in this file.
 Declare client variable.
 Options are optional.  
 Valid options are:  
-canary (true/false, standard is false): When set to true the canary api will be used.
+canary (true/false, standard is false): When set to true the canary api will be used.  
+default (object): Default values to be used in other functions.  
+  
+Valid default options are:  
+locked (true/false): Locks the post making no-one able to reply
+from (string): Shows behind the send date on a post/reply.
 ```javascript
 const client = new bubblez.client({ options });
 ```
@@ -169,3 +174,14 @@ Example emit return data:
   "senttoken": "censored"
 }
 ```
+
+## Errors
+### Error: Bubblez.js error: Not logged in yet
+This error appears when you try to interact with the api but you haven't logged in properly yet.
+### Error: Bubblez.js error: No ... declared
+This error appears when require parameters aren't set.
+### Error: Bubblez.js error: (other error)
+This error appears when the api returns an error.  
+These responses are made by the bubblez api and not the bubblez.js module.
+### TypeError: Bubblez.js: "(variable name)" variable is (variable type), expected (expected variable type)
+This error appears when you declare parameters with incorrect types.
