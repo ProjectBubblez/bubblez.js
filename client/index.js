@@ -17,20 +17,24 @@ class client extends EventEmitter{
 
     async send(message, options){
         let params = new URLSearchParams();
-        if(options != undefined){
-            if(options.from != undefined){
-                params.append('from', options.from);
-            }
-            if(options.locked == true){
-                params.append('locked', 'on');
-            }else{
-                params.append('locked', 'off');
-            }
-        }
         if(!message){
             throw Error("Bubblez.js error: No message declared");
         }else{
+            if(typeof(message) != "string") throw TypeError(`Bubblez.js: "message" variable is ${typeof(message)}, expected string`);
             params.append('post', message);
+        }
+        if(typeof(options) != "undefined" && typeof(options) != "object") throw TypeError(`Bubblez.js: "options" variable is ${typeof(options)}, expected object or undefined`);
+        if(options != undefined){
+            if(typeof(options.from) != "undefined" && typeof(options.from) != "string") throw TypeError(`Bubblez.js: "options.from" variable is ${typeof(options.from)}, expected string or undefined`);
+            if(options.from != undefined){
+                params.append('from', options.from);
+            }
+            if(typeof(options.locked) != "undefined" && typeof(options.locked) != "boolean") throw TypeError(`Bubblez.js: "options.locked" variable is ${typeof(options.locked)}, expected boolean or undefined`);
+            if(options.locked == true){
+                params.append('locked', 'on');
+            }else if(options.locked == false){
+                params.append('locked', 'off');
+            }
         }
         params.append('token', this.token);
         let fetchdata = await fetch(`${this.apiurl}sendpost`, {
@@ -46,19 +50,23 @@ class client extends EventEmitter{
 
     async reply(postid, message, options){
         let params = new URLSearchParams();
+        if(typeof(options) != "undefined" && typeof(options) != "object") throw TypeError(`Bubblez.js: "options" variable is ${typeof(options)}, expected object or undefined`);
         if(options != undefined){
             if(options.from != undefined){
+                if(typeof(options.from) != "undefined" && typeof(options.from) != "string") throw TypeError(`Bubblez.js: "options.from" variable is ${typeof(options.from)}, expected string or undefined`);
                 params.append('from', options.from);
             }
         }
         if(!postid){
             throw Error("Bubblez.js error: No postid declared");
         }else{
+            if(typeof(postid) != "number") throw TypeError(`Bubblez.js: "postid" variable is ${typeof(postid)}, expected number`);
             params.append('postid', postid);
         }
         if(!message){
             throw Error("Bubblez.js error: No message declared");
         }else{
+            if(typeof(message) != "string") throw TypeError(`Bubblez.js: "message" variable is ${typeof(message)}, expected string`);
             params.append('reply', message);
         }
         params.append('token', this.token);
@@ -77,6 +85,7 @@ class client extends EventEmitter{
         if(!username){
             throw Error("Bubblez.js error: No username declared");
         }
+        if(typeof(username) != "string") throw TypeError(`Bubblez.js: "username" variable is ${typeof(username)}, expected string`);
         let params = new URLSearchParams();
         params.append('username', username);
         params.append('token', this.token);
@@ -95,6 +104,7 @@ class client extends EventEmitter{
         if(!postid){
             throw Error("Bubblez.js error: No postid declared");
         }
+        if(typeof(postid) != "number") throw TypeError(`Bubblez.js: "postid" variable is ${typeof(postid)}, expected number`);
         let params = new URLSearchParams();
         params.append('postid', postid);
         params.append('token', this.token);
@@ -141,6 +151,7 @@ class client extends EventEmitter{
         if(!token){
             throw Error("Bubblez.js error: No token received");
         }
+        if(typeof(token) != "string") throw TypeError(`Bubblez.js: "token" variable is ${typeof(token)}, expected string`);
         let params = new URLSearchParams();
         params.append('token', token);
         let fetchdata = await fetch(`${this.apiurl}checktoken`, {
