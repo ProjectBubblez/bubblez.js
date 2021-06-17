@@ -25,11 +25,11 @@ from (string): Shows behind the send date on a post/reply.
 const client = new bubblez.Client({ options });
 ```
 ### Values
-default: The set default options
-apiurl: The apiurl bubblez.js uses to communicate with the bubblez api
-token (*): The token bubblez.js uses to communicate with the bubblez api
-user (*): The user information of the token owner in a User class
-(*) = Only set after the login method has been run
+default: The set default options  
+apiurl: The apiurl bubblez.js uses to communicate with the bubblez api  
+token (1): The token bubblez.js uses to communicate with the bubblez api  
+user (1): The user information of the token owner in a User class  
+(1) = Only set after the login method has been run
 ### send
 Send a post to bubblez.
 Options are optional.  
@@ -136,9 +136,9 @@ content: The string of what was posted in the message
 from: Where the post was made from  
 locked: true/false depending on whether the post is locked or not  
 edited: Shows when the post was last edited  
-post_date (*): Shows when the post was made  
+post_date (1): Shows when the post was made  
 replies: An array with replies which have the Reply class  
-(*) = Due to api inconsistencies this data might not be available
+(1) = Due to api inconsistencies this data might not be available
 ### reply
 Post a reply on this message.  
 Options are optional.  
@@ -167,10 +167,10 @@ replyid: The id of the reply
 username: The username of the one who posted the reply  
 content: The reply message of the reply  
 from: Where the post was made from  
-deleted (*): Whether the reply is deleted or not  
+deleted (1): Whether the reply is deleted or not  
 edited: When the reply was edited  
-reply_date (*): When the reply was made  
-(*) = Due to api inconsistencies this data might not be available
+reply_date (1): When the reply was made  
+(1) = Due to api inconsistencies this data might not be available
 ### delete
 Delete the current reply if you are the original poster.
 ```javascript
@@ -179,8 +179,8 @@ Delete the current reply if you are the original poster.
 
 ## User (class)
 ### Values
-private.email (*): Email of the user  
-private.dob (*): Birthdate of the user  
+private.email (1): Email of the user  
+private.dob (1): Birthdate of the user  
 username: The username of the user  
 displayname: The displayname of the user  
 pfp: The url to the pfp of the user  
@@ -197,8 +197,8 @@ ban: Shows the time when the user will be unbanned
 created_at: When the account was created  
 last_posted: When the user last posted  
 posts: Array of posts which have the Message class  
-replies (*): The replies the user posted  
-(*) = This information is only available when the information is from the token owner
+replies (1): The replies the user posted  
+(1) = This information is only available when the information is from the token owner
 ### update
 Update the saved data of this user
 ```javascript
