@@ -1,6 +1,6 @@
 {
   "name": "bubblez.js",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A library to easily use the bubblez api",
   "main": "index.js",
   "scripts": {

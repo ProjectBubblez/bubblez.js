@@ -1,7 +1,16 @@
 
 # Bubblez.js Documentation
 All functions, how to use them, and what they return is shown in this file.
-## client
+
+## Important deprecation notice!
+In update 1.1.0 bubblez.js switched from returning objects to returning classes.
+The client class was named without a capital which isn't the standard for naming classes.
+Make sure to use the Client (with a capital c) class instead of the now deprecated client (without a capital c) class.
+The old class will still be present so everyone has time to convert their code but it will be removed in a future update.    
+Also the getTokenUser method has been deprecated since the token user information is now stored in (Client).user
+If you need to fetch this data from the api use (Client).user.update()
+
+## Client (class)
 ### constructor
 Declare client variable.
 Options are optional.  
@@ -13,8 +22,14 @@ Valid default options are:
 locked (true/false): Locks the post making no-one able to reply
 from (string): Shows behind the send date on a post/reply.
 ```javascript
-const client = new bubblez.client({ options });
+const client = new bubblez.Client({ options });
 ```
+### Values
+default: The set default options
+apiurl: The apiurl bubblez.js uses to communicate with the bubblez api
+token (*): The token bubblez.js uses to communicate with the bubblez api
+user (*): The user information of the token owner in a User class
+(*) = Only set after the login method has been run
 ### send
 Send a post to bubblez.
 Options are optional.  
@@ -22,84 +37,35 @@ Valid options are:
 locked (true/false, standard is false): If the post is locked, no-one can reply to the message.  
 from (string): Shows behind the send date on a post.
 ```javascript
-client.send("message here", { options });
+(Client).send("message here", { options });
 ```
-Return example:
-```json
-{
-  "200": "message sent",
-  "post": "Test",
-  "from": null,
-  "locked": "false",
-  "postid": 444
-}
-```
+Returns the Message class.
 ### reply
 To send a reply use the below code, replace "1" with the postid and "reply here" with the reply you want to send.
 Options are optional.  
 Valid options are:  
-from (string): Shows behind the send date on a post.
+from (string): Shows behind the send date on a reply.
 ```javascript
-client.reply(1, "reply here", { options });
+(Client).reply(1, "reply here", { options });
 ```
-Return example:
-```json
-{
-  "200": "reply sent",
-  "reply": "Test",
-  "postid": "444",
-  "from": null
-}
-```
+Returns the Reply class.
 ### getUser
 To get info from a specific user use the below code, replace "username here" with the username you want to get information from.
 ```javascript
-client.getUser("username here");
+(Client).getUser("username here");
 ```
-Return example:
-```json
-{
-  "200": "Found user",
-  "username": "Slice",
-  "displayname": "Slice",
-  "pfp": "https://i.imgur.com/rlN6cZN.jpg",
-  "banner": null,
-  "coins": "5",
-  "rank": "bughunter",
-  "eventr": null,
-  "patreon": "false",
-  "booster": "false",
-  "bio": "Hello, i like cheese.",
-  "nsfw": "false",
-  "ban": null,
-  "created_at": "2020-05-26 11:43:49",
-  "last_posted": "2021-03-17 19:23:41"
-}
-```
+Returns the User class.
 ### getPost
 Get info about a post using a postid.
 ```javascript
-client.getPost(1);
+(Client).getPost(1);
 ```
-Return example:
-```json
-{
-  "200": "Found post",
-  "postid": "437",
-  "username": "Slice",
-  "nsfw": "false",
-  "content": "@Slice echo Hmm, a bot with commands inside of bubblez?",
-  "from": null,
-  "locked": "false",
-  "edited": null,
-  "post_date": "2021-03-17 19:11:31",
-  "replies": { "error": "No replies found" }
-}
-```
+Returns the Message class.
 ### getTokenUser
+IMPORTANT!!! This method has been deprecated, read the important deprecation notice at the top of the documentation.  
 Get information about the user bound to the token.
 ```javascript
-client.getTokenUser();
+(Client).getTokenUser();
 ```
 Return example:
 ```json
@@ -149,37 +115,109 @@ Return example:
 ### latestPost
 Returns the postid of the newest post.
 ```javascript
-client.latestPost();
+(Client).latestPost();
 ```
-Return example:
-```json
-{
-    "200": "latest Post",
-    "postid": "446"
-}
-```
+Returns the postid as an integer.
 ### login
 Check if your token is valid and then set the token for being used in the apirequests.
 Without running this command successfully all api requests will fail due to invalid token.
 This function itself does not return any data, it does emit the ready even and will send basic user data with that.
 ```javascript
-client.login("token here");
+(Client).login("token here");
 ```
-Example emit return data:
-```json
-{
-  "200": "Found Token",
-  "username": "Slice",
-  "receivedtoken": "censored",
-  "senttoken": "censored"
-}
+Returns the User class.
+
+## Message (class)
+### Values
+postid: The id of the post  
+username: The username of the user who posted the message  
+nsfw: true/false depending on whether the user is marked as an nsfw account  
+content: The string of what was posted in the message  
+from: Where the post was made from  
+locked: true/false depending on whether the post is locked or not  
+edited: Shows when the post was last edited  
+post_date (*): Shows when the post was made  
+replies: An array with replies which have the Reply class  
+(*) = Due to api inconsistencies this data might not be available
+### reply
+Post a reply on this message.  
+Options are optional.  
+Valid options are:  
+from (string): Shows behind the send date on a reply.
+```javascript
+(Message).reply("reply here", { options });
+```
+Returns the Reply class.
+### delete
+Delete the current message if you are the original poster.
+```javascript
+(Message).delete();
+```
+Returns true.
+### update
+Update the saved data of this message
+```javascript
+(Message).update();
+```
+Returns the updated Message class.
+
+## Reply (class)
+### Values
+replyid: The id of the reply  
+username: The username of the one who posted the reply  
+content: The reply message of the reply  
+from: Where the post was made from  
+deleted (*): Whether the reply is deleted or not  
+edited: When the reply was edited  
+reply_date (*): When the reply was made  
+(*) = Due to api inconsistencies this data might not be available
+### delete
+Delete the current reply if you are the original poster.
+```javascript
+(Reply).delete();
+```
+
+## User (class)
+### Values
+private.email (*): Email of the user  
+private.dob (*): Birthdate of the user  
+username: The username of the user  
+displayname: The displayname of the user  
+pfp: The url to the pfp of the user  
+banner: The url to the banner of the user  
+coins: The coin amount of the user  
+rank: The rank of the user  
+eventr: The additional rank of the user  
+patreon: true/false whether the user is a patreon or not  
+booster: true/false whether the user is a booster or not  
+bio: The bio of the user  
+nsfw: true/false whether the user is marked as nsfw or not  
+pronoun: The pronouns of the user  
+ban: Shows the time when the user will be unbanned  
+created_at: When the account was created  
+last_posted: When the user last posted  
+posts: Array of posts which have the Message class  
+replies (*): The replies the user posted  
+(*) = This information is only available when the information is from the token owner
+### update
+Update the saved data of this user
+```javascript
+(User).update();
 ```
 
 ## Errors
+### Deprecation Warning: To keep class naming consistent the client class has been renamed to ...
+Read the important deprecation notice at the top of the documentation.
+### Deprecation Warning: Token user information is now available through <Client>.user ...
+Read the important deprecation notice at the top of the documentation.
 ### Error: Bubblez.js error: Not logged in yet
 This error appears when you try to interact with the api but you haven't logged in properly yet.
 ### Error: Bubblez.js error: No ... declared
-This error appears when require parameters aren't set.
+This error appears when required parameters aren't set.
+### Error: Bubblez.js error: Insufficient permissions to delete this message
+This error appears when you try to delete a message which isn't yours.
+### Error: Bubblez.js error: Insufficient permissions to delete this reply
+This error appears when you try to delete a reply which isn't yours.
 ### Error: Bubblez.js error: (other error)
 This error appears when the api returns an error.  
 These responses are made by the bubblez api and not the bubblez.js module.

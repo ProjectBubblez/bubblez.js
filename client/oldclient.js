@@ -5,9 +5,10 @@ const Message = require('./../classes/Message.js');
 const User = require('./../classes/User.js');
 const Reply = require('./../classes/Reply.js');
 
-class Client extends EventEmitter{
+class client extends EventEmitter{
     constructor(options){
         super();
+        console.warn("Deprecation Warning:\nTo keep class naming consistent the client class has been renamed to Client (with a capital c).\nThe older client (without a capital c) class will be removed in a future update.");
         this.default = {};
         if(typeof(options) != "undefined" && typeof(options) != "object") throw TypeError(`Bubblez.js: "options" variable is ${typeof(options)}, expected object or undefined`);
         if(options != undefined){
@@ -182,7 +183,7 @@ class Client extends EventEmitter{
         if(fetchdata.error != undefined){
             throw Error(`Bubblez.js error: ${fetchdata.error}`);
         }
-        return fetchdata.postid;
+        return fetchdata;
     }
 
     async deleteReply(replyid){
@@ -250,4 +251,4 @@ class Client extends EventEmitter{
     }
 }
 
-module.exports = Client;
+module.exports = client;
