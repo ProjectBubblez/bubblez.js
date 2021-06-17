@@ -13,6 +13,7 @@ class User{
             this.private.email = data.email;
             this.private.dob = data.dob;
         }
+        this.uuid = data.uuid;
         this.username = data.username;
         this.displayname = data.displayname;
         this.pfp = data.pfp;
@@ -62,6 +63,7 @@ class User{
             this.private = {};
             this.private.email = fetchdata.email;
             this.private.dob = fetchdata.dob;
+            this.uuid = fetchdata.uuid;
             this.username = fetchdata.username;
             this.displayname = fetchdata.displayname;
             this.pfp = fetchdata.pfp;
@@ -74,9 +76,9 @@ class User{
             this.bio = fetchdata.bio;
             this.nsfw = fetchdata.nsfw;
             this.pronoun = fetchdata.pronoun;
-            this.ban = fetchdata.ban;
+            this.ban = null;
             this.created_at = fetchdata.created_at;
-            this.last_posted = fetchdata.last_posted;
+            this.last_posted = null;
             if(fetchdata.posts && fetchdata.posts.posts !== null){
                 this.posts = [];
                 fetchdata.posts.forEach(post => {
@@ -107,6 +109,7 @@ class User{
             if(fetchdata.error != undefined){
                 throw Error(`Bubblez.js error: ${fetchdata.error}`);
             }
+            this.uuid = fetchdata.uuid;
             this.username = fetchdata.username;
             this.displayname = fetchdata.displayname;
             this.pfp = fetchdata.pfp;

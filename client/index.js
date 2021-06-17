@@ -246,7 +246,7 @@ class Client extends EventEmitter{
         }
         this.token = token;
         this.user = new User(this, fetchdata);
-        this.emit("ready", fetchdata);
+        this.emit("ready", this.user);
     }
 }
 

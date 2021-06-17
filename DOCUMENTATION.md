@@ -6,9 +6,18 @@ All functions, how to use them, and what they return is shown in this file.
 In update 1.1.0 bubblez.js switched from returning objects to returning classes.
 The client class was named without a capital which isn't the standard for naming classes.
 Make sure to use the Client (with a capital c) class instead of the now deprecated client (without a capital c) class.
-The old class will still be present so everyone has time to convert their code but it will be removed in a future update.    
+The old class will still be present so everyone has time to convert their code but it will be removed in a future update.  
+
 Also the getTokenUser method has been deprecated since the token user information is now stored in (Client).user
-If you need to fetch this data from the api use (Client).user.update()
+If you need to fetch this data from the api use (Client).user.update()  
+
+Some values have been deprecated by the bubblez api (they default to null for the time being).
+The values will still be present for now but will be removed in a future update.
+The next values are deprecated:  
+(User).ban  
+(User).last_posted  
+(Reply).deleted  
+The value UUID defaults to null on canary as uuids haven't been introduced yet.
 
 ## Client (class)
 ### constructor
@@ -167,7 +176,7 @@ replyid: The id of the reply
 username: The username of the one who posted the reply  
 content: The reply message of the reply  
 from: Where the post was made from  
-deleted (1): Whether the reply is deleted or not  
+deleted: Whether the reply is deleted or not (deprecated, shows null)  
 edited: When the reply was edited  
 reply_date (1): When the reply was made  
 (1) = Due to api inconsistencies this data might not be available
@@ -181,6 +190,7 @@ Delete the current reply if you are the original poster.
 ### Values
 private.email (1): Email of the user  
 private.dob (1): Birthdate of the user  
+uuid: The uuid of this user (null on canary)  
 username: The username of the user  
 displayname: The displayname of the user  
 pfp: The url to the pfp of the user  
@@ -193,9 +203,9 @@ booster: true/false whether the user is a booster or not
 bio: The bio of the user  
 nsfw: true/false whether the user is marked as nsfw or not  
 pronoun: The pronouns of the user  
-ban: Shows the time when the user will be unbanned  
+ban: Shows the time when the user will be unbanned (deprecated, shows null)  
 created_at: When the account was created  
-last_posted: When the user last posted  
+last_posted: When the user last posted (deprecated, shows null)  
 posts: Array of posts which have the Message class  
 replies (1): The replies the user posted  
 (1) = This information is only available when the information is from the token owner
