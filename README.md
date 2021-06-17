@@ -16,7 +16,7 @@ Warning: Make sure to start contacting the bubblez api after the ready event has
 If the ready event hasn't been fired yet, the token hasn't been set either!
 ```javascript
 const bubblez = require('bubblez.js');
-const client = new bubblez.client({ options });
+const client = new bubblez.Client({ options });
 
 client.once('ready', user => {
     console.log("Logged in as: " + user.username);
