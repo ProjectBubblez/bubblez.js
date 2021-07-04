@@ -1,6 +1,7 @@
 
 # Bubblez.js Documentation
 All functions, how to use them, and what they return is shown in this file.
+The bubblez.js module require nodejs version 14 or above.
 
 ## Important remove note!
 In update 1.1.0 bubblez.js switched from returning objects to returning classes.

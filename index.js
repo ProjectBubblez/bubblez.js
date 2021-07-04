@@ -1,7 +1,8 @@
 module.exports = {
     Client: require('./client/index.js'),
-    client: require('./client/oldclient.js'), // Deprecated
 
     // Classes
-    Message: require('./classes/Message.js')
+    Message: require('./classes/Message.js'),
+    Reply: require('./classes/Reply.js'),
+    User: require('./classes/User')
 };

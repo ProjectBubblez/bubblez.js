@@ -30,7 +30,7 @@ class Message{
         let params = new URLSearchParams();
         if(typeof(options) != "undefined" && typeof(options) != "object") throw TypeError(`Bubblez.js: "options" variable is ${typeof(options)}, expected object or undefined`);
         if(options == undefined) options = {};
-        if(options.from == undefined) options.from = this.#client.default.from;
+        options.from = options.from ?? this.#client.default.from;
         if(options.from != undefined){
             if(typeof(options.from) != "undefined" && typeof(options.from) != "string") throw TypeError(`Bubblez.js: "options.from" variable is ${typeof(options.from)}, expected string or undefined`);
             params.append('from', options.from);

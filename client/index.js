@@ -43,8 +43,8 @@ class Client extends EventEmitter{
         }
         if(typeof(options) != "undefined" && typeof(options) != "object") throw TypeError(`Bubblez.js: "options" variable is ${typeof(options)}, expected object or undefined`);
         if(options == undefined) options = {};
-        if(options.from == undefined) options.from = this.default.from;
-        if(options.locked == undefined) options.locked = this.default.locked;
+        options.from = options.from ?? this.default.from;
+        options.locked = options.locked ?? this.default.locked;
         if(typeof(options.from) != "undefined" && typeof(options.from) != "string") throw TypeError(`Bubblez.js: "options.from" variable is ${typeof(options.from)}, expected string or undefined`);
         if(options.from != undefined){
             params.append('from', options.from);
@@ -80,7 +80,7 @@ class Client extends EventEmitter{
         let params = new URLSearchParams();
         if(typeof(options) != "undefined" && typeof(options) != "object") throw TypeError(`Bubblez.js: "options" variable is ${typeof(options)}, expected object or undefined`);
         if(options == undefined) options = {};
-        if(options.from == undefined) options.from = this.default.from;
+        options.from = options.from ?? this.default.from;
         if(options.from != undefined){
             if(typeof(options.from) != "undefined" && typeof(options.from) != "string") throw TypeError(`Bubblez.js: "options.from" variable is ${typeof(options.from)}, expected string or undefined`);
             params.append('from', options.from);

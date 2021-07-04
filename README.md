@@ -2,6 +2,7 @@
 
 ## About
 Bubblez.js is the official module made to easily interact with the Bubblez api (https://bubblez.app/api/) in nodejs.
+The bubblez.js module require nodejs version 14 or above.
 
 ## Install
 ```
