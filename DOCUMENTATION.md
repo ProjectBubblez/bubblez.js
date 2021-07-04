@@ -70,6 +70,24 @@ Get info about a post using a postid.
 (Client).getPost(1);
 ```
 Returns the Message class.
+### latestBlog
+Get the info about the latest blogpost/devlog.
+```javascript
+(Client).latestBlog();
+```
+Return example:
+```json
+{
+  "blogid": "1",
+  "blogposter_username": "embed",
+  "blogposter_displayname": "embed",
+  "blogposter_pfp": "https://i.imgur.com/Md5C3uy.gif",
+  "blogcontent": "Welcome to Canary! This is where we will be testing new features for Bubblez! If you find any bugs, please report them to us on our Discord!\r\n" +
+    "\r\n" +
+    "https://discord.gg/7cCV5Y9",
+  "blogdate": "2020-05-26 11:49:23"
+}
+```
 ### getTokenUser
 IMPORTANT!!! This method has been deprecated, read the important deprecation notice at the top of the documentation.  
 Get information about the user bound to the token.

@@ -229,6 +229,22 @@ class Client extends EventEmitter{
         return true;
     }
 
+    async latestBlog(){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
+        let params = new URLSearchParams();
+        params.append('token', this.token);
+        let fetchdata = await fetch(`${this.apiurl}latestblog`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
+        delete fetchdata["200"];
+        return fetchdata;
+    }
+
     async login(token){
         if(!token){
             throw Error("Bubblez.js error: No token declared");
