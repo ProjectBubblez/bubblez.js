@@ -2,22 +2,22 @@
 # Bubblez.js Documentation
 All functions, how to use them, and what they return is shown in this file.
 
-## Important deprecation notice!
+## Important remove note!
 In update 1.1.0 bubblez.js switched from returning objects to returning classes.
 The client class was named without a capital which isn't the standard for naming classes.
-Make sure to use the Client (with a capital c) class instead of the now deprecated client (without a capital c) class.
-The old class will still be present so everyone has time to convert their code but it will be removed in a future update.  
-
-Also the getTokenUser method has been deprecated since the token user information is now stored in (Client).user
+The old client (without a capital c) was first deprecated but is now removed entirely.  
+  
+Also the getTokenUser method has been removed since the token user information is now stored in (Client).user
 If you need to fetch this data from the api use (Client).user.update()  
-
-Some values have been deprecated by the bubblez api (they default to null for the time being).
-The values will still be present for now but will be removed in a future update.
-The next values are deprecated:  
+  
+Some values have been removed since they were deprecated by the bubblez api.
+The next values are now removed:  
 (User).ban  
 (User).last_posted  
 (Reply).deleted  
-The value UUID defaults to null on canary as uuids haven't been introduced yet.
+
+### Canary UUIDs
+The value UUID defaults to null on canary as uuids haven't been introduced yet on canary.
 
 ## Client (class)
 ### constructor
@@ -89,56 +89,7 @@ Return example:
 }
 ```
 ### getTokenUser
-IMPORTANT!!! This method has been deprecated, read the important deprecation notice at the top of the documentation.  
-Get information about the user bound to the token.
-```javascript
-(Client).getTokenUser();
-```
-Return example:
-```json
-{
-  "200": "Found user",
-  "username": "Slice",
-  "displayname": "Slice",
-  "email": "censored",
-  "pfp": "https://i.imgur.com/rlN6cZN.jpg",
-  "banner": null,
-  "coins": "5",
-  "rank": "bughunter",
-  "eventr": null,
-  "patreon": "false",
-  "booster": "false",
-  "bio": "Hello, i like cheese.",
-  "nsfw": "false",
-  "dob": "censored",
-  "ban": null,
-  "created_at": "2020-05-26 11:43:49",
-  "last_posted": "2021-03-17 19:23:41",
-  "posts": [
-    {
-      "postid": "201",
-      "username": "Slice",
-      "nsfw": "false",
-      "content": "Hi canary",
-      "from": null,
-      "locked": "false",
-      "edited": null,
-      "post_date": "2020-05-26 11:54:27"
-    }
-  ],
-  "replies": [
-    {
-      "postid": "220",
-      "username": "Slice",
-      "nsfw": "false",
-      "content": "Hi @darkmatter",
-      "from": null,
-      "edited": null,
-      "reply_date": "2020-05-29 19:16:58"
-    }
-  ]
-}
-```
+IMPORTANT!!! This method has been removed, read the important remove note at the top of the documentation.  
 ### latestPost
 Returns the postid of the newest post.
 ```javascript
@@ -194,7 +145,6 @@ replyid: The id of the reply
 username: The username of the one who posted the reply  
 content: The reply message of the reply  
 from: Where the post was made from  
-deleted: Whether the reply is deleted or not (deprecated, shows null)  
 edited: When the reply was edited  
 reply_date (1): When the reply was made  
 (1) = Due to api inconsistencies this data might not be available
@@ -221,9 +171,7 @@ booster: true/false whether the user is a booster or not
 bio: The bio of the user  
 nsfw: true/false whether the user is marked as nsfw or not  
 pronoun: The pronouns of the user  
-ban: Shows the time when the user will be unbanned (deprecated, shows null)  
 created_at: When the account was created  
-last_posted: When the user last posted (deprecated, shows null)  
 posts: Array of posts which have the Message class  
 replies (1): The replies the user posted  
 (1) = This information is only available when the information is from the token owner
@@ -234,10 +182,6 @@ Update the saved data of this user
 ```
 
 ## Errors
-### Deprecation Warning: To keep class naming consistent the client class has been renamed to ...
-Read the important deprecation notice at the top of the documentation.
-### Deprecation Warning: Token user information is now available through <Client>.user ...
-Read the important deprecation notice at the top of the documentation.
 ### Error: Bubblez.js error: Not logged in yet
 This error appears when you try to interact with the api but you haven't logged in properly yet.
 ### Error: Bubblez.js error: No ... declared

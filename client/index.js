@@ -154,22 +154,6 @@ class Client extends EventEmitter{
         return new Message(this, fetchdata);
     }
 
-    async getTokenUser(){
-        console.warn("Deprecation Warning:\nToken user information is now available through <Client>.user\nUpdating this information is possible through <User>.update() making this function unnecessary.\nThis will be removed in a later version");
-        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
-        let params = new URLSearchParams();
-        params.append('token', this.token);
-        let fetchdata = await fetch(`${this.apiurl}checkuser`, {
-            method: 'POST',
-            body: params,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        }).then(r => r.json());
-        if(fetchdata.error != undefined){
-            throw Error(`Bubblez.js error: ${fetchdata.error}`);
-        }
-        return fetchdata;
-    }
-
     async latestPost(){
         if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();

@@ -26,9 +26,7 @@ class User{
         this.bio = data.bio;
         this.nsfw = data.nsfw;
         this.pronoun = data.pronoun;
-        this.ban = data.ban;
         this.created_at = data.created_at;
-        this.last_posted = data.last_posted;
         if(data.posts && data.posts.posts !== null){
             this.posts = [];
             data.posts.forEach(post => {
