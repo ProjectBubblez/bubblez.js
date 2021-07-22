@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ProjectBubblez/bubblez.js#readme",
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "ws": "^7.5.3"
   }
 }

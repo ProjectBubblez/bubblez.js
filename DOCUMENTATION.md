@@ -3,6 +3,12 @@
 All functions, how to use them, and what they return is shown in this file.
 The bubblez.js module require nodejs version 14 or above.
 
+## Non production ready
+This commit is not meant for use in production as features might have bugs or not be working completely.  
+The documentation should mostly be up to date with the new features but might miss a few things and could be incorrect.  
+At the time of writing this it is impossible to use websockets as the server for those websockets is not running yet, use the disableWebsocket option to prevent problems while logging in.  
+Once this server is up it could be incompatible with this commit.
+
 ## Important remove note!
 In update 1.1.0 bubblez.js switched from returning objects to returning classes.
 The client class was named without a capital which isn't the standard for naming classes.
@@ -27,6 +33,10 @@ Options are optional.
 Valid options are:  
 canary (true/false, standard is false): When set to true the canary api will be used.  
 default (object): Default values to be used in other functions.  
+verbose (true/false, standard is false): Show extra output, can be useful for debugging (not fully integrated)  
+websocketurl (string): Overwrite the url Bubblez.js should use to contact the websocket  
+apiurl (string): Overwrite the url Bubblez.js should use to contact the api  
+disableWebsocket (true/false): Disable websocket functionality (recommended to be turned on while in non production ready commits)
   
 Valid default options are:  
 locked (true/false): Locks the post making no-one able to reply
@@ -105,6 +115,36 @@ This function itself does not return any data, it does emit the ready even and w
 (Client).login("token here");
 ```
 Returns the User class.
+
+## Client (events)
+The Client class has a few events which are documented here.
+### ready
+This event is emitted when the login function has determined you are fully authorized.  
+A variable is attached to this event that has the client user information in a User class.
+```javascript
+(Client).on("ready", (user) => {
+  console.log(user);
+});
+```
+### post
+This event is emitted when a new post is made.  
+Being connected to the websocket is necessary for this event to be emitted.  
+A variable is attached to this event that has the information of the new post in a Message class.
+```javascript
+(Client).on("post", (post) => {
+  console.log(post);
+});
+```
+### reply
+This event is emitted when a new reply is made.  
+Being connected to the websocket is necessary for this event to be emitted.  
+Two variables are attached to this event that have the information of the new reply in a Reply class and the parent message in a Message class.
+```javascript
+(Client).on("reply", (reply, post) => {
+  console.log(reply);
+  console.log(post);
+});
+```
 
 ## Message (class)
 ### Values

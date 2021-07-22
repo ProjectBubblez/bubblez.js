@@ -1,9 +1,11 @@
 const fetch = require('node-fetch');
+const WebSocket = require("ws");
 const { URLSearchParams } = require('url');
 const EventEmitter = require('events');
 const Message = require('./../classes/Message.js');
 const User = require('./../classes/User.js');
 const Reply = require('./../classes/Reply.js');
+const WebsocketHandler = require("./handleWebsocket.js");
 
 class Client extends EventEmitter{
     constructor(options){
@@ -15,6 +17,10 @@ class Client extends EventEmitter{
             if(options.canary == true){
                 this.apiurl = 'https://canary.bubblez.app/api/v1/';
             }
+            if(typeof(options.verbose) != "undefined" && typeof(options.verbose) != "boolean") throw TypeError(`Bubblez.js: "options.verbose" variable is ${typeof(options.verbose)}, expected boolean or undefined`);
+            if(options.verbose == true){
+                this.verbose = true;
+            }
             if(typeof(options.default) != "undefined" && typeof(options.default) != "object") throw TypeError(`Bubblez.js: "options.default" variable is ${typeof(options.default)}, expected object or undefined`);
             if(options.default != undefined){
                 if(options.default.from){
@@ -25,6 +31,18 @@ class Client extends EventEmitter{
                     if(typeof(options.default.locked) != "undefined" && typeof(options.default.locked) != "boolean") throw TypeError(`Bubblez.js: "options.default.locked" variable is ${typeof(options.default.locked)}, expected boolean or undefined`);
                     this.default.locked = options.default.locked;
                 }
+            }
+            if(typeof(options.websocketurl) != "undefined" && typeof(options.websocketurl) != "string") throw TypeError(`Bubblez.js: "options.websocketurl" variable is ${typeof(options.websocketurl)}, expected string or undefined`);
+            if(options.websocketurl) {
+                this.websocketurl = options.websocketurl;
+            }
+            if(typeof(options.apiurl) != "undefined" && typeof(options.apiurl) != "string") throw TypeError(`Bubblez.js: "options.apiurl" variable is ${typeof(options.apiurl)}, expected string or undefined`);
+            if(options.apiurl) {
+                this.apiurl = options.apiurl;
+            }
+            if(typeof(options.disableWebsocket) != "undefined" && typeof(options.disableWebsocket) != "boolean") throw TypeError(`Bubblez.js: "options.disableWebsocket" variable is ${typeof(options.apiurl)}, expected boolean or undefined`);
+            if(options.disableWebsocket == true){
+                this.disableWebsocket = true;
             }
         }
         if(!this.apiurl){
@@ -236,6 +254,7 @@ class Client extends EventEmitter{
         if(typeof(token) != "string") throw TypeError(`Bubblez.js: "token" variable is ${typeof(token)}, expected string`);
         let params = new URLSearchParams();
         params.append('token', token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}checkuser`);
         let fetchdata = await fetch(`${this.apiurl}checkuser`, {
             method: 'POST',
             body: params,
@@ -244,8 +263,15 @@ class Client extends EventEmitter{
         if(fetchdata.error != undefined){
             throw Error(`Bubblez.js error: ${fetchdata.error}`);
         }
+        if(this.verbose == true) console.log(`[Bubblez.js] Token verified`);
         this.token = token;
         this.user = new User(this, fetchdata);
+        if(!this.disableWebsocket){
+            if(this.verbose == true) console.log(`[Bubblez.js] Connecting to websocket at ${this.websocketurl}`);
+            this.websocket = new WebSocket(this.websocketurl);
+            new WebsocketHandler(this);
+            return;
+        }else if(this.verbose == true) console.log(`[Bubblez.js] Skipped connecting to websocket`);
         this.emit("ready", this.user);
     }
 }
