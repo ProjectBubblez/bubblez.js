@@ -266,6 +266,22 @@ class Client extends EventEmitter{
         if(this.verbose == true) console.log(`[Bubblez.js] Token verified`);
         this.token = token;
         this.user = new User(this, fetchdata);
+        if(this.verbose == true) console.log(`[Bubblez.js] Updating online status`);
+        fetch(`${this.apiurl}ping`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+        setInterval(() => {
+            if(this.verbose == true) console.log(`[Bubblez.js] Updating online status`);
+            let params = new URLSearchParams();
+            params.append('token', this.token);
+            fetch(`${this.apiurl}ping`, {
+                method: 'POST',
+                body: params,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+        }, 240e3);
         if(!this.disableWebsocket){
             if(this.verbose == true) console.log(`[Bubblez.js] Connecting to websocket at ${this.websocketurl}`);
             this.websocket = new WebSocket(this.websocketurl);
