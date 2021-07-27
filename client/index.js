@@ -78,6 +78,7 @@ class Client extends EventEmitter{
             params.append('locked', 'off');
         }
         params.append('token', this.token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}sendpost`);
         let fetchdata = await fetch(`${this.apiurl}sendpost`, {
             method: 'POST',
             body: params,
@@ -86,6 +87,7 @@ class Client extends EventEmitter{
         if(fetchdata.error != undefined){
             throw Error(`Bubblez.js error: ${fetchdata.error}`);
         }
+        if(this.verbose == true) console.log(`[Bubblez.js] Editing fetched data for usage in the Message class`);
         let postdata = {};
         postdata.postid = fetchdata.postid;
         postdata.username = this.user.username;
@@ -120,6 +122,7 @@ class Client extends EventEmitter{
             params.append('reply', message);
         }
         params.append('token', this.token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}sendreply`);
         let fetchdata = await fetch(`${this.apiurl}sendreply`, {
             method: 'POST',
             body: params,
@@ -128,6 +131,7 @@ class Client extends EventEmitter{
         if(fetchdata.error != undefined){
             throw Error(`Bubblez.js error: ${fetchdata.error}`);
         }
+        if(this.verbose == true) console.log(`[Bubblez.js] Editing fetched data for usage in the Reply class`);
         let replydata = {};
         replydata.username = this.user.username;
         replydata.content = fetchdata.reply;
@@ -145,6 +149,7 @@ class Client extends EventEmitter{
         let params = new URLSearchParams();
         params.append('username', username);
         params.append('token', this.token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}getuser`);
         let fetchdata = await fetch(`${this.apiurl}getuser`, {
             method: 'POST',
             body: params,
@@ -165,6 +170,7 @@ class Client extends EventEmitter{
         let params = new URLSearchParams();
         params.append('postid', postid);
         params.append('token', this.token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}getpost`);
         let fetchdata = await fetch(`${this.apiurl}getpost`, {
             method: 'POST',
             body: params,
@@ -180,6 +186,7 @@ class Client extends EventEmitter{
         if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();
         params.append('token', this.token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}latestPost`);
         let fetchdata = await fetch(`${this.apiurl}latestpost`, {
             method: 'POST',
             body: params,
@@ -202,6 +209,7 @@ class Client extends EventEmitter{
         }
         params.append('token', this.token);
         params.append('confirm', true);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}deletereply`);
         let fetchdata = await fetch(`${this.apiurl}deletereply`, {
             method: 'POST',
             body: params,
@@ -224,6 +232,7 @@ class Client extends EventEmitter{
         }
         params.append('token', this.token);
         params.append('confirm', true);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}deletepost`);
         let fetchdata = await fetch(`${this.apiurl}deletepost`, {
             method: 'POST',
             body: params,
@@ -239,6 +248,7 @@ class Client extends EventEmitter{
         if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();
         params.append('token', this.token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}latestblog`);
         let fetchdata = await fetch(`${this.apiurl}latestblog`, {
             method: 'POST',
             body: params,
