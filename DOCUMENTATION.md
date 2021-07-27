@@ -36,7 +36,8 @@ default (object): Default values to be used in other functions.
 verbose (true/false, standard is false): Show extra output, can be useful for debugging (not fully integrated)  
 websocketurl (string): Overwrite the url Bubblez.js should use to contact the websocket  
 apiurl (string): Overwrite the url Bubblez.js should use to contact the api  
-disableWebsocket (true/false): Disable websocket functionality (recommended to be turned on while in non production ready commits)
+disableWebsocket (true/false): Disable websocket functionality (recommended to be turned on while in non production ready commits)  
+showOffline (true/false): Skips updating online status when set as true
   
 Valid default options are:  
 locked (true/false): Locks the post making no-one able to reply

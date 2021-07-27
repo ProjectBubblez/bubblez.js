@@ -40,9 +40,13 @@ class Client extends EventEmitter{
             if(options.apiurl) {
                 this.apiurl = options.apiurl;
             }
-            if(typeof(options.disableWebsocket) != "undefined" && typeof(options.disableWebsocket) != "boolean") throw TypeError(`Bubblez.js: "options.disableWebsocket" variable is ${typeof(options.apiurl)}, expected boolean or undefined`);
+            if(typeof(options.disableWebsocket) != "undefined" && typeof(options.disableWebsocket) != "boolean") throw TypeError(`Bubblez.js: "options.disableWebsocket" variable is ${typeof(options.disableWebsocket)}, expected boolean or undefined`);
             if(options.disableWebsocket == true){
                 this.disableWebsocket = true;
+            }
+            if(typeof(options.showOffline) != "undefined" && typeof(options.showOffline) != "boolean") throw TypeError(`Bubblez.js: "options.showOffline" variable is ${typeof(options.showOffline)}, expected boolean or undefined`);
+            if(options.showOffline == true){
+                this.showOffline = true;
             }
         }
         if(!this.apiurl){
@@ -267,21 +271,23 @@ class Client extends EventEmitter{
         this.token = token;
         this.user = new User(this, fetchdata);
         if(this.verbose == true) console.log(`[Bubblez.js] Updating online status`);
-        fetch(`${this.apiurl}ping`, {
-            method: 'POST',
-            body: params,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        });
-        setInterval(() => {
-            if(this.verbose == true) console.log(`[Bubblez.js] Updating online status`);
-            let params = new URLSearchParams();
-            params.append('token', this.token);
+        if(!this.showOffline){
             fetch(`${this.apiurl}ping`, {
                 method: 'POST',
                 body: params,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
-        }, 240e3);
+            setInterval(() => {
+                if(this.verbose == true) console.log(`[Bubblez.js] Updating online status`);
+                let params = new URLSearchParams();
+                params.append('token', this.token);
+                fetch(`${this.apiurl}ping`, {
+                    method: 'POST',
+                    body: params,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                });
+            }, 240e3);
+        }else if(this.verbose == true) console.log(`[Bubblez.js] Skipped updating online status`);
         if(!this.disableWebsocket){
             if(this.verbose == true) console.log(`[Bubblez.js] Connecting to websocket at ${this.websocketurl}`);
             this.websocket = new WebSocket(this.websocketurl);
