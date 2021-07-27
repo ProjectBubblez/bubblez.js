@@ -50,6 +50,7 @@ class User{
             if(!this.#client.token) throw Error("Bubblez.js error: Not logged in yet");
             let params = new URLSearchParams();
             params.append('token', this.#client.token);
+            if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}checkuser`);
             let fetchdata = await fetch(`${this.#client.apiurl}checkuser`, {
                 method: 'POST',
                 body: params,
@@ -99,6 +100,7 @@ class User{
             let params = new URLSearchParams();
             params.append('username', this.#client.user.username);
             params.append('token', this.#client.token);
+            if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}getuser`);
             let fetchdata = await fetch(`${this.#client.apiurl}getuser`, {
                 method: 'POST',
                 body: params,

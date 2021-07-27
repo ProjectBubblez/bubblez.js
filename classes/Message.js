@@ -44,6 +44,7 @@ class Message{
             params.append('reply', message);
         }
         params.append('token', this.#client.token);
+        if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}sendreply`);
         let fetchdata = await fetch(`${this.#client.apiurl}sendreply`, {
             method: 'POST',
             body: params,
@@ -67,6 +68,7 @@ class Message{
             params.append('postid', this.postid);
             params.append('token', this.#client.token);
             params.append('confirm', true);
+            if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}deletepost`);
             let fetchdata = await fetch(`${this.#client.apiurl}deletepost`, {
                 method: 'POST',
                 body: params,
@@ -86,6 +88,7 @@ class Message{
         let params = new URLSearchParams();
         params.append('postid', this.postid);
         params.append('token', this.#client.token);
+        if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}getpost`);
         let fetchdata = await fetch(`${this.#client.apiurl}getpost`, {
             method: 'POST',
             body: params,
