@@ -78,8 +78,8 @@ class Client extends EventEmitter{
             params.append('locked', 'off');
         }
         params.append('token', this.token);
-        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}sendpost`);
-        let fetchdata = await fetch(`${this.apiurl}sendpost`, {
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}post/send`);
+        let fetchdata = await fetch(`${this.apiurl}post/send`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -122,8 +122,8 @@ class Client extends EventEmitter{
             params.append('reply', message);
         }
         params.append('token', this.token);
-        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}sendreply`);
-        let fetchdata = await fetch(`${this.apiurl}sendreply`, {
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}reply/send`);
+        let fetchdata = await fetch(`${this.apiurl}reply/send`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -149,8 +149,8 @@ class Client extends EventEmitter{
         let params = new URLSearchParams();
         params.append('username', username);
         params.append('token', this.token);
-        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}getuser`);
-        let fetchdata = await fetch(`${this.apiurl}getuser`, {
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}user/get`);
+        let fetchdata = await fetch(`${this.apiurl}user/get`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -170,8 +170,8 @@ class Client extends EventEmitter{
         let params = new URLSearchParams();
         params.append('postid', postid);
         params.append('token', this.token);
-        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}getpost`);
-        let fetchdata = await fetch(`${this.apiurl}getpost`, {
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}post/get`);
+        let fetchdata = await fetch(`${this.apiurl}post/get`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -186,8 +186,8 @@ class Client extends EventEmitter{
         if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();
         params.append('token', this.token);
-        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}latestPost`);
-        let fetchdata = await fetch(`${this.apiurl}latestpost`, {
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}post/latest`);
+        let fetchdata = await fetch(`${this.apiurl}post/latest`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -209,8 +209,8 @@ class Client extends EventEmitter{
         }
         params.append('token', this.token);
         params.append('confirm', true);
-        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}deletereply`);
-        let fetchdata = await fetch(`${this.apiurl}deletereply`, {
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}reply/delete`);
+        let fetchdata = await fetch(`${this.apiurl}reply/delete`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -232,8 +232,8 @@ class Client extends EventEmitter{
         }
         params.append('token', this.token);
         params.append('confirm', true);
-        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}deletepost`);
-        let fetchdata = await fetch(`${this.apiurl}deletepost`, {
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}post/delete`);
+        let fetchdata = await fetch(`${this.apiurl}post/delete`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -248,8 +248,8 @@ class Client extends EventEmitter{
         if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();
         params.append('token', this.token);
-        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}latestblog`);
-        let fetchdata = await fetch(`${this.apiurl}latestblog`, {
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}blog/latest`);
+        let fetchdata = await fetch(`${this.apiurl}blog/latest`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -268,8 +268,8 @@ class Client extends EventEmitter{
         if(typeof(token) != "string") throw TypeError(`Bubblez.js: "token" variable is ${typeof(token)}, expected string`);
         let params = new URLSearchParams();
         params.append('token', token);
-        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}checkuser`);
-        let fetchdata = await fetch(`${this.apiurl}checkuser`, {
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}user/check`);
+        let fetchdata = await fetch(`${this.apiurl}user/check`, {
             method: 'POST',
             body: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -282,7 +282,7 @@ class Client extends EventEmitter{
         this.user = new User(this, fetchdata);
         if(this.verbose == true) console.log(`[Bubblez.js] Updating online status`);
         if(!this.showOffline){
-            fetch(`${this.apiurl}ping`, {
+            fetch(`${this.apiurl}user/ping`, {
                 method: 'POST',
                 body: params,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -291,7 +291,7 @@ class Client extends EventEmitter{
                 if(this.verbose == true) console.log(`[Bubblez.js] Updating online status`);
                 let params = new URLSearchParams();
                 params.append('token', this.token);
-                fetch(`${this.apiurl}ping`, {
+                fetch(`${this.apiurl}user/ping`, {
                     method: 'POST',
                     body: params,
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }

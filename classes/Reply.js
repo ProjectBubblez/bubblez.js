@@ -22,8 +22,8 @@ class Reply{
             params.append('replyid', this.replyid);
             params.append('token', this.#client.token);
             params.append('confirm', true);
-            if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}deletereply`);
-            let fetchdata = await fetch(`${this.#client.apiurl}deletereply`, {
+            if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}reply/delete`);
+            let fetchdata = await fetch(`${this.#client.apiurl}reply/delete`, {
                 method: 'POST',
                 body: params,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
