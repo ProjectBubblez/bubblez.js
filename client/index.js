@@ -261,6 +261,38 @@ class Client extends EventEmitter{
         return fetchdata;
     }
 
+    async lockPost(postid, lock){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
+        let params = new URLSearchParams();
+        if(!postid){
+            throw Error("Bubblez.js error: No postid declared");
+        }else{
+            if(typeof(postid) != "number") throw TypeError(`Bubblez.js: "postid" variable is ${typeof(postid)}, expected number`);
+            params.append('postid', postid);
+        }
+        if(lock === undefined){
+            throw Error("Bubblez.js error: No lock declared");
+        }else{
+            if(typeof(lock) != "boolean") throw TypeError(`Bubblez.js: "lock" variable is ${typeof(lock)}, expected boolean`);
+            if(lock == true){
+                params.append('togglelock', "true");
+            }else{
+                params.append('togglelock', "false");
+            }
+        }
+        params.append('token', this.token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}post/lock`);
+        let fetchdata = await fetch(`${this.apiurl}post/lock`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
+        return true;
+    }
+
     async login(token){
         if(!token){
             throw Error("Bubblez.js error: No token declared");

@@ -108,6 +108,15 @@ Returns the postid of the newest post.
 (Client).latestPost();
 ```
 Returns the postid as an integer.
+### lockPost
+Locks/unlocks a post.
+In the first position you define the postid and in the second one you define whether you want the post to be locked or unlocked.  
+true: Lock the post  
+false: Unlock the post
+```javascript
+(Client).lockPost(1, true);
+```
+Returns true.
 ### login
 Check if your token is valid and then set the token for being used in the apirequests.
 Without running this command successfully all api requests will fail due to invalid token.
@@ -172,6 +181,12 @@ Returns the Reply class.
 Delete the current message if you are the original poster.
 ```javascript
 (Message).delete();
+```
+Returns true.
+### toggleLock
+Locks the post if it's unlocked, unlocks the post if it's locked.
+```javascript
+(Message).toggleLock();
 ```
 Returns true.
 ### update
