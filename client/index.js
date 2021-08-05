@@ -293,6 +293,62 @@ class Client extends EventEmitter{
         return true;
     }
 
+    async editPost(postid, message){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
+        let params = new URLSearchParams();
+        if(!postid){
+            throw Error("Bubblez.js error: No postid declared");
+        }else{
+            if(typeof(postid) != "number") throw TypeError(`Bubblez.js: "postid" variable is ${typeof(postid)}, expected number`);
+            params.append('postid', postid);
+        }
+        if(!message){
+            throw Error("Bubblez.js error: No message declared");
+        }else{
+            if(typeof(message) != "string") throw TypeError(`Bubblez.js: "message" variable is ${typeof(message)}, expected string`);
+            params.append('post', message);
+        }
+        params.append('token', this.token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}post/edit`);
+        let fetchdata = await fetch(`${this.apiurl}post/edit`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
+        return true;
+    }
+
+    async editReply(replyid, reply){
+        if(!this.token) throw Error("Bubblez.js error: Not logged in yet");
+        let params = new URLSearchParams();
+        if(!replyid){
+            throw Error("Bubblez.js error: No replyid declared");
+        }else{
+            if(typeof(replyid) != "number") throw TypeError(`Bubblez.js: "replyid" variable is ${typeof(replyid)}, expected number`);
+            params.append('replyid', replyid);
+        }
+        if(!reply){
+            throw Error("Bubblez.js error: No reply declared");
+        }else{
+            if(typeof(reply) != "string") throw TypeError(`Bubblez.js: "reply" variable is ${typeof(reply)}, expected string`);
+            params.append('reply', reply);
+        }
+        params.append('token', this.token);
+        if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}reply/edit`);
+        let fetchdata = await fetch(`${this.apiurl}reply/edit`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
+        return true;
+    }
+
     async login(token){
         if(!token){
             throw Error("Bubblez.js error: No token declared");

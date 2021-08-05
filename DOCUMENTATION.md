@@ -117,6 +117,20 @@ false: Unlock the post
 (Client).lockPost(1, true);
 ```
 Returns true.
+### editPost
+Edit the message in a post.
+In the first position you define the postid and in the second one you define what you want to edit the message to.
+```javascript
+(Client).editPost(1, "Bubblez.js is quite good");
+```
+Returns true.
+### editReply
+Edit the message in a reply.
+In the first position you define the replyid and in the second one you define what you want to edit the message to.
+```javascript
+(Client).editReply(1, "I can definitely agree with that");
+```
+Returns true.
 ### login
 Check if your token is valid and then set the token for being used in the apirequests.
 Without running this command successfully all api requests will fail due to invalid token.
