@@ -203,6 +203,12 @@ Locks the post if it's unlocked, unlocks the post if it's locked.
 (Message).toggleLock();
 ```
 Returns true.
+### edit
+Edit the message in a post.
+Only argument is the string the post needs to be edited to.
+```javascript
+(Message).edit("Bubblez.js is quite good");
+```
 ### update
 Update the saved data of this message
 ```javascript
@@ -223,6 +229,12 @@ reply_date (1): When the reply was made
 Delete the current reply if you are the original poster.
 ```javascript
 (Reply).delete();
+```
+### edit
+Edit the message in a reply.
+Only argument is the string the reply needs to be edited to.
+```javascript
+(Reply).edit("I can definitely agree with that");
 ```
 
 ## User (class)

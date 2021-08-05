@@ -105,6 +105,29 @@ class Message{
         return true;
     }
 
+    async edit(message){
+        if(!this.#client.token) throw Error("Bubblez.js error: Not logged in yet");
+        let params = new URLSearchParams();
+        params.append('postid', this.postid);
+        if(!message){
+            throw Error("Bubblez.js error: No message declared");
+        }else{
+            if(typeof(message) != "string") throw TypeError(`Bubblez.js: "message" variable is ${typeof(message)}, expected string`);
+            params.append('post', message);
+        }
+        params.append('token', this.#client.token);
+        if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}post/edit`);
+        let fetchdata = await fetch(`${this.#client.apiurl}post/edit`, {
+            method: 'POST',
+            body: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(r => r.json());
+        if(fetchdata.error != undefined){
+            throw Error(`Bubblez.js error: ${fetchdata.error}`);
+        }
+        return true;
+    }
+
     async update(){
         if(!this.#client.token) throw Error("Bubblez.js error: Not logged in yet");
         let params = new URLSearchParams();
