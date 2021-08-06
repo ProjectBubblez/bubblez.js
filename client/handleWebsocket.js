@@ -6,6 +6,12 @@ class WebsocketHandler{
     constructor(client){
         client.websocket.onopen = function(){
             if(client.verbose == true) console.log(`[Bubblez.js] Connected to the websocket`);
+            setInterval(() => {
+                client.websocket.send(JSON.stringify({
+                    "message": "PING"
+                }));
+                if(client.verbose == true) console.log(`[Bubblez.js] Pinged the websocket`);
+            }, 300e3);
         }
 
         client.websocket.onmessage = function(message){
