@@ -52,6 +52,7 @@ class Client extends EventEmitter{
         if(!this.apiurl){
             this.apiurl = 'https://bubblez.app/api/v1/';
         }
+        this.disableWebsocket = true;
     }
 
     async send(message, options){
