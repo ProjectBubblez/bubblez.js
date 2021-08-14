@@ -35,7 +35,7 @@ class User{
         }else{
             this.posts = null;
         }
-        if(data.replies && data.replies !== null){
+        if(data.replies && data.replies.replies !== null){
             this.replies = [];
             data.replies.forEach(reply => {
                 this.replies.push(new Reply(this.#client, reply));
