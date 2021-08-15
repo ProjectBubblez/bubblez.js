@@ -9,10 +9,10 @@ class Message{
         this.#client = client;
         this.postid = parseInt(data.postid);
         this.username = data.username;
-        this.nsfw = data.nsfw;
         this.content = data.content;
         this.from = data.from;
         this.locked = data.locked;
+        this.pnsfw = data.pnsfw;
         this.edited = data.edited;
         if(data.post_date) this.post_date = data.post_date;
         if(data.replies && data.replies.replies !== null){
@@ -31,9 +31,16 @@ class Message{
         if(typeof(options) != "undefined" && typeof(options) != "object") throw TypeError(`Bubblez.js: "options" variable is ${typeof(options)}, expected object or undefined`);
         if(options == undefined) options = {};
         options.from = options.from ?? this.#client.default.from;
+        options.nsfw = options.nsfw ?? this.#client.default.nsfw;
         if(options.from != undefined){
             if(typeof(options.from) != "undefined" && typeof(options.from) != "string") throw TypeError(`Bubblez.js: "options.from" variable is ${typeof(options.from)}, expected string or undefined`);
             params.append('from', options.from);
+        }
+        if(typeof(options.nsfw) != "undefined" && typeof(options.nsfw) != "boolean") throw TypeError(`Bubblez.js: "options.nsfw" variable is ${typeof(options.nsfw)}, expected boolean or undefined`);
+            if(options.nsfw == true){
+                params.append('nsfw', 'true');
+            }else{
+                params.append('nsfw', 'false');
         }
         if(typeof(this.postid) != "number") throw TypeError(`Bubblez.js: "this.postid" variable is ${typeof(this.postid)}, expected number`);
         params.append('postid', this.postid);
@@ -57,6 +64,7 @@ class Message{
         replydata.username = this.#client.user.username;
         replydata.content = fetchdata.reply;
         replydata.from = fetchdata.from;
+        replydata.rnsfw = fetchdata.rnsfw;
         replydata.replyid = fetchdata.replyid;
         return new Reply(this.#client, replydata);
     }

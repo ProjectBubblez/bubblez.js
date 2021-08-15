@@ -31,6 +31,10 @@ class Client extends EventEmitter{
                     if(typeof(options.default.locked) != "undefined" && typeof(options.default.locked) != "boolean") throw TypeError(`Bubblez.js: "options.default.locked" variable is ${typeof(options.default.locked)}, expected boolean or undefined`);
                     this.default.locked = options.default.locked;
                 }
+                if(options.default.nsfw){
+                    if(typeof(options.default.nsfw) != "undefined" && typeof(options.default.nsfw) != "boolean") throw TypeError(`Bubblez.js: "options.default.nsfw" variable is ${typeof(options.default.nsfw)}, expected boolean or undefined`);
+                    this.default.nsfw = options.default.nsfw;
+                }
             }
             if(typeof(options.websocketurl) != "undefined" && typeof(options.websocketurl) != "string") throw TypeError(`Bubblez.js: "options.websocketurl" variable is ${typeof(options.websocketurl)}, expected string or undefined`);
             if(options.websocketurl) {
@@ -68,15 +72,22 @@ class Client extends EventEmitter{
         if(options == undefined) options = {};
         options.from = options.from ?? this.default.from;
         options.locked = options.locked ?? this.default.locked;
+        options.nsfw = options.nsfw ?? this.default.nsfw;
         if(typeof(options.from) != "undefined" && typeof(options.from) != "string") throw TypeError(`Bubblez.js: "options.from" variable is ${typeof(options.from)}, expected string or undefined`);
         if(options.from != undefined){
             params.append('from', options.from);
         }
         if(typeof(options.locked) != "undefined" && typeof(options.locked) != "boolean") throw TypeError(`Bubblez.js: "options.locked" variable is ${typeof(options.locked)}, expected boolean or undefined`);
         if(options.locked == true){
-            params.append('locked', 'on');
-        }else if(options.locked == false){
-            params.append('locked', 'off');
+            params.append('locked', 'true');
+        }else{
+            params.append('locked', 'false');
+        }
+        if(typeof(options.nsfw) != "undefined" && typeof(options.nsfw) != "boolean") throw TypeError(`Bubblez.js: "options.nsfw" variable is ${typeof(options.nsfw)}, expected boolean or undefined`);
+        if(options.nsfw == true){
+            params.append('nsfw', 'true');
+        }else{
+            params.append('nsfw', 'false');
         }
         params.append('token', this.token);
         if(this.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.apiurl}post/send`);
@@ -92,10 +103,10 @@ class Client extends EventEmitter{
         let postdata = {};
         postdata.postid = fetchdata.postid;
         postdata.username = this.user.username;
-        postdata.nsfw = this.user.nsfw;
         postdata.content = fetchdata.post;
         postdata.from = fetchdata.from;
         postdata.locked = fetchdata.locked;
+        postdata.pnsfw = fetchdata.pnsfw;
         postdata.edited = null;
         return new Message(this, postdata);
     }
@@ -106,9 +117,16 @@ class Client extends EventEmitter{
         if(typeof(options) != "undefined" && typeof(options) != "object") throw TypeError(`Bubblez.js: "options" variable is ${typeof(options)}, expected object or undefined`);
         if(options == undefined) options = {};
         options.from = options.from ?? this.default.from;
+        options.nsfw = options.nsfw ?? this.default.nsfw;
         if(options.from != undefined){
             if(typeof(options.from) != "undefined" && typeof(options.from) != "string") throw TypeError(`Bubblez.js: "options.from" variable is ${typeof(options.from)}, expected string or undefined`);
             params.append('from', options.from);
+        }
+        if(typeof(options.nsfw) != "undefined" && typeof(options.nsfw) != "boolean") throw TypeError(`Bubblez.js: "options.nsfw" variable is ${typeof(options.nsfw)}, expected boolean or undefined`);
+        if(options.nsfw == true){
+            params.append('nsfw', 'true');
+        }else{
+            params.append('nsfw', 'false');
         }
         if(!postid){
             throw Error("Bubblez.js error: No postid declared");
@@ -137,6 +155,7 @@ class Client extends EventEmitter{
         replydata.username = this.user.username;
         replydata.content = fetchdata.reply;
         replydata.from = fetchdata.from;
+        replydata.rnsfw = fetchdata.rnsfw;
         replydata.replyid = fetchdata.replyid;
         return new Reply(this, replydata);
     }
