@@ -10,6 +10,7 @@ class Reply{
         this.username = data.username;
         this.content = data.content;
         this.from = data.from;
+        this.nsfw = data.rnsfw;
         if(data.edit_date !== undefined) this.edited = data.edit_date;
         if(data.edited !== undefined) this.edited = data.edited;
         if(data.reply_date) this.reply_date = data.reply_date;

@@ -3,12 +3,6 @@
 All functions, how to use them, and what they return is shown in this file.
 The bubblez.js module require nodejs version 14 or above.
 
-## Non production ready
-This commit is not meant for use in production as features might have bugs or not be working completely.  
-The documentation should mostly be up to date with the new features but might miss a few things and could be incorrect.  
-At the time of writing this it is impossible to use websockets as the server for those websockets is not running yet, use the disableWebsocket option to prevent problems while logging in.  
-Once this server is up it could be incompatible with this commit.
-
 ## Important remove note!
 In update 1.1.0 bubblez.js switched from returning objects to returning classes.
 The client class was named without a capital which isn't the standard for naming classes.
@@ -42,6 +36,7 @@ showOffline (true/false): Skips updating online status when set as true
 Valid default options are:  
 locked (true/false): Locks the post making no-one able to reply
 from (string): Shows behind the send date on a post/reply.
+nsfw (true/false): Set's all posts and replies to NSFW.
 ```javascript
 const client = new bubblez.Client({ options });
 ```
@@ -57,6 +52,7 @@ Options are optional.
 Valid options are:  
 locked (true/false, standard is false): If the post is locked, no-one can reply to the message.  
 from (string): Shows behind the send date on a post.
+nsfw (true/false, standard is false): sets the post status to NSFW meaning none under the age of 18 can see the post.
 ```javascript
 (Client).send("message here", { options });
 ```
@@ -66,6 +62,7 @@ To send a reply use the below code, replace "1" with the postid and "reply here"
 Options are optional.  
 Valid options are:  
 from (string): Shows behind the send date on a reply.
+nsfw (true/false, standard is false): sets the reply status to NSFW meaning none under the age of 18 can see the reply.
 ```javascript
 (Client).reply(1, "reply here", { options });
 ```
@@ -174,10 +171,10 @@ Two variables are attached to this event that have the information of the new re
 ### Values
 postid: The id of the post  
 username: The username of the user who posted the message  
-nsfw: true/false depending on whether the user is marked as an nsfw account  
 content: The string of what was posted in the message  
 from: Where the post was made from  
 locked: true/false depending on whether the post is locked or not  
+pnsfw: true/false depending on whether the post is marked as NSFW
 edited: Shows when the post was last edited  
 post_date (1): Shows when the post was made  
 replies: An array with replies which have the Reply class  
@@ -222,6 +219,7 @@ replyid: The id of the reply
 username: The username of the one who posted the reply  
 content: The reply message of the reply  
 from: Where the post was made from  
+rnsfw: true/false depending on whether the reply is marked as NSFW
 edited: When the reply was edited  
 reply_date (1): When the reply was made  
 (1) = Due to api inconsistencies this data might not be available
