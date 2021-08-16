@@ -9,6 +9,7 @@ class Message{
         this.#client = client;
         this.postid = parseInt(data.postid);
         this.username = data.username;
+        this.pfp = fetchdata.pfp;
         this.content = data.content;
         this.from = data.from;
         this.locked = data.locked;

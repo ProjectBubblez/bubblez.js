@@ -30,6 +30,7 @@ class User{
         if(data.posts && data.posts.posts !== null){
             this.posts = [];
             data.posts.forEach(post => {
+                post.pfp = this.pfp;
                 this.posts.push(new Message(this.#client, post));
             });
         }else{
