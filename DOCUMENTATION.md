@@ -3,11 +3,10 @@
 All functions, how to use them, and what they return is shown in this file.
 The bubblez.js module require nodejs version 14 or above.
 
-## Non production ready
-This commit is not meant for use in production as features might have bugs or not be working completely.  
-The documentation should mostly be up to date with the new features but might miss a few things and could be incorrect.  
-At the time of writing this it is impossible to use websockets as the server for those websockets is not running yet, use the disableWebsocket option to prevent problems while logging in.  
-Once this server is up it could be incompatible with this commit.
+## Development Commit
+This commit is an in development commit, this is not a release version and not meant for use in production.
+Using this commit should not cause any issues but not everything is ready for production use.
+More issues can occur then is normally expected and some features might not be running 100%.
 
 ## Important remove note!
 In update 1.1.0 bubblez.js switched from returning objects to returning classes.

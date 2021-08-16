@@ -12,7 +12,7 @@ class Message{
         this.content = data.content;
         this.from = data.from;
         this.locked = data.locked;
-        this.pnsfw = data.pnsfw;
+        this.nsfw = data.pnsfw;
         this.edited = data.edited;
         if(data.post_date) this.post_date = data.post_date;
         if(data.replies && data.replies.replies !== null){
@@ -152,7 +152,7 @@ class Message{
         }
         this.postid = parseInt(fetchdata.postid);
         this.username = fetchdata.username;
-        this.nsfw = fetchdata.nsfw;
+        this.nsfw = fetchdata.pnsfw;
         this.content = fetchdata.content;
         this.from = fetchdata.from;
         this.locked = fetchdata.locked;
