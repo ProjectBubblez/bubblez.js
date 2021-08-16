@@ -3,11 +3,6 @@
 All functions, how to use them, and what they return is shown in this file.
 The bubblez.js module require nodejs version 14 or above.
 
-## Development Commit
-This commit is an in development commit, this is not a release version and not meant for use in production.
-Using this commit should not cause any issues but not everything is ready for production use.
-More issues can occur then is normally expected and some features might not be running 100%.
-
 ## Important remove note!
 In update 1.1.0 bubblez.js switched from returning objects to returning classes.
 The client class was named without a capital which isn't the standard for naming classes.
