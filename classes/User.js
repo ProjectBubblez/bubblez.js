@@ -51,8 +51,8 @@ class User{
             if(!this.#client.token) throw Error("Bubblez.js error: Not logged in yet");
             let params = new URLSearchParams();
             params.append('token', this.#client.token);
-            if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}checkuser`);
-            let fetchdata = await fetch(`${this.#client.apiurl}checkuser`, {
+            if(this.#client.verbose == true) console.log(`[Bubblez.js] Sending api request to ${this.#client.apiurl}user/check`);
+            let fetchdata = await fetch(`${this.#client.apiurl}user/check`, {
                 method: 'POST',
                 body: params,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
