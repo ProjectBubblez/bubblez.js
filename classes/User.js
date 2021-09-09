@@ -16,6 +16,7 @@ class User{
         this.uuid = data.uuid;
         this.username = data.username;
         this.displayname = data.displayname;
+		this.followers = data.followers;
         this.pfp = data.pfp;
         this.banner = data.banner;
         this.coins = data.coins;
@@ -113,6 +114,7 @@ class User{
             this.uuid = fetchdata.uuid;
             this.username = fetchdata.username;
             this.displayname = fetchdata.displayname;
+			this.followers = fetchdata.followers;
             this.pfp = fetchdata.pfp;
             this.banner = fetchdata.banner;
             this.coins = fetchdata.coins;
