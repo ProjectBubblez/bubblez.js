@@ -242,7 +242,7 @@ private.dob (1): Birthdate of the user
 uuid: The uuid of this user (null on canary)  
 username: The username of the user  
 displayname: The displayname of the user  
-followers: The follower amoung of the user  
+followers: The follower amount of the user  
 pfp: The url to the pfp of the user  
 banner: The url to the banner of the user  
 coins: The coin amount of the user  
