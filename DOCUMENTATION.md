@@ -35,7 +35,7 @@ showOffline (true/false): Skips updating online status when set as true
   
 Valid default options are:  
 locked (true/false): Locks the post making no-one able to reply
-from (string): Shows behind the send date on a post/reply.
+from (string): Shows behind the send date on a post/reply.  
 nsfw (true/false): Set's all posts and replies to NSFW.
 ```javascript
 const client = new bubblez.Client({ options });
@@ -51,7 +51,7 @@ Send a post to bubblez.
 Options are optional.  
 Valid options are:  
 locked (true/false, standard is false): If the post is locked, no-one can reply to the message.  
-from (string): Shows behind the send date on a post.
+from (string): Shows behind the send date on a post.  
 nsfw (true/false, standard is false): sets the post status to NSFW meaning none under the age of 18 can see the post.
 ```javascript
 (Client).send("message here", { options });
@@ -61,7 +61,7 @@ Returns the Message class.
 To send a reply use the below code, replace "1" with the postid and "reply here" with the reply you want to send.
 Options are optional.  
 Valid options are:  
-from (string): Shows behind the send date on a reply.
+from (string): Shows behind the send date on a reply. 
 nsfw (true/false, standard is false): sets the reply status to NSFW meaning none under the age of 18 can see the reply.
 ```javascript
 (Client).reply(1, "reply here", { options });
@@ -242,6 +242,7 @@ private.dob (1): Birthdate of the user
 uuid: The uuid of this user (null on canary)  
 username: The username of the user  
 displayname: The displayname of the user  
+followers: The follower amoung of the user  
 pfp: The url to the pfp of the user  
 banner: The url to the banner of the user  
 coins: The coin amount of the user  
