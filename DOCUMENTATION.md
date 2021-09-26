@@ -27,14 +27,14 @@ Options are optional.
 Valid options are:  
 canary (true/false, standard is false): When set to true the canary api will be used.  
 default (object): Default values to be used in other functions.  
-verbose (true/false, standard is false): Show extra output, can be useful for debugging
+verbose (true/false, standard is false): Show extra output, can be useful for debugging  
 websocketurl (string): Overwrite the url Bubblez.js should use to contact the websocket  
 apiurl (string): Overwrite the url Bubblez.js should use to contact the api  
 disableWebsocket (true/false): Disable websocket functionality (Forced to true due to issues)  
 showOffline (true/false): Skips updating online status when set as true
   
 Valid default options are:  
-locked (true/false): Locks the post making no-one able to reply
+locked (true/false): Locks the post making no-one able to reply  
 from (string): Shows behind the send date on a post/reply.  
 nsfw (true/false): Set's all posts and replies to NSFW.
 ```javascript
@@ -61,7 +61,7 @@ Returns the Message class.
 To send a reply use the below code, replace "1" with the postid and "reply here" with the reply you want to send.
 Options are optional.  
 Valid options are:  
-from (string): Shows behind the send date on a reply. 
+from (string): Shows behind the send date on a reply.  
 nsfw (true/false, standard is false): sets the reply status to NSFW meaning none under the age of 18 can see the reply.
 ```javascript
 (Client).reply(1, "reply here", { options });
