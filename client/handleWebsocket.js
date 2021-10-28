@@ -18,12 +18,12 @@ class WebsocketHandler{
         client.websocket.onmessage = function(message){
             let messageobject = JSON.parse(message.data);
             if(client.verbose == true) console.log(`[Bubblez.js] Received message from websocket: ${messageobject.message}`);
-            if(messageobject.message == "AUTHORIZATION_REQUIRED"){
+            if(messageobject.message == "AUTHENTICATION_REQUIRED"){
                 client.websocket.send(JSON.stringify({
                     "message": "SEND_TOKEN",
                     "token": client.token
                 }));
-            }else if(messageobject.message == "AUTHORIZED"){
+            }else if(messageobject.message == "AUTHENTICATED"){
                 that.heartbeatInterval = messageobject.heartbeatinterval;
                 client.emit("ready", client.user);
                 that.sendheartbeat();
