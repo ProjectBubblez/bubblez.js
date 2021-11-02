@@ -16,6 +16,7 @@ class Client extends EventEmitter{
             if(typeof(options.canary) != "undefined" && typeof(options.canary) != "boolean") throw TypeError(`Bubblez.js: "options.canary" variable is ${typeof(options.canary)}, expected boolean or undefined`);
             if(options.canary == true){
                 this.apiurl = 'https://canary.bubblez.app/api/v1/';
+                this.websocketurl = "wss://ws.bubblez.app/canary";
             }
             if(typeof(options.verbose) != "undefined" && typeof(options.verbose) != "boolean") throw TypeError(`Bubblez.js: "options.verbose" variable is ${typeof(options.verbose)}, expected boolean or undefined`);
             if(options.verbose == true){
@@ -55,6 +56,9 @@ class Client extends EventEmitter{
         }
         if(!this.apiurl){
             this.apiurl = 'https://bubblez.app/api/v1/';
+        }
+        if(!this.websocketurl){
+            this.websocketurl = "wss://ws.bubblez.app/live";
         }
     }
 

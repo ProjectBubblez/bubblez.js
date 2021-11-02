@@ -31,6 +31,8 @@ class WebsocketHandler{
                 client.emit("post", new Message(client, messageobject.postdata));
             }else if(messageobject.message == "NEW_REPLY"){
                 client.emit("reply", new Reply(client, messageobject.replydata), new Message(client, messageobject.postdata));
+            }else if(messageobject.message == "NEW_DEVLOG"){
+                client.emit("devlog", messageobject.postdata);
             }else if(messageobject.message == "HEARTBEAT_ACK"){
                 that.lastheartbeatack = (new Date()).getTime();
             }else if(messageobject.message == "HEARTBEAT_MISSED"){

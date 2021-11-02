@@ -3,21 +3,7 @@
 All functions, how to use them, and what they return is shown in this file.
 The bubblez.js module require nodejs version 14 or above.
 
-## Important remove note!
-In update 1.1.0 bubblez.js switched from returning objects to returning classes.
-The client class was named without a capital which isn't the standard for naming classes.
-The old client (without a capital c) was first deprecated but is now removed entirely.  
-  
-Also the getTokenUser method has been removed since the token user information is now stored in (Client).user
-If you need to fetch this data from the api use (Client).user.update()  
-  
-Some values have been removed since they were deprecated by the bubblez api.
-The next values are now removed:  
-(User).ban  
-(User).last_posted  
-(Reply).deleted  
-
-### Canary UUIDs
+## Canary UUIDs
 The value UUID defaults to null on canary as uuids haven't been introduced yet on canary.
 
 ## Client (class)
@@ -25,7 +11,7 @@ The value UUID defaults to null on canary as uuids haven't been introduced yet o
 Declare client variable.
 Options are optional.  
 Valid options are:  
-canary (true/false, standard is false): When set to true the canary api will be used.  
+canary (true/false, standard is false): When set to true the canary api and websocket will be used.  
 default (object): Default values to be used in other functions.  
 verbose (true/false, standard is false): Show extra output, can be useful for debugging  
 websocketurl (string): Overwrite the url Bubblez.js should use to contact the websocket  
