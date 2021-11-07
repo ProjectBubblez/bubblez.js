@@ -411,7 +411,6 @@ class Client extends EventEmitter{
         }else if(this.verbose == true) console.log(`[Bubblez.js] Skipped updating online status`);
         if(!this.disableWebsocket){
             if(this.verbose == true) console.log(`[Bubblez.js] Connecting to websocket at ${this.websocketurl}`);
-            this.websocket = new WebSocket(this.websocketurl);
             new WebsocketHandler(this);
             return;
         }else if(this.verbose == true) console.log(`[Bubblez.js] Skipped connecting to websocket`);
