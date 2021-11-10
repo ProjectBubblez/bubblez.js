@@ -4,5 +4,6 @@ module.exports = {
     // Classes
     Message: require('./classes/Message.js'),
     Reply: require('./classes/Reply.js'),
-    User: require('./classes/User')
+    User: require('./classes/User'),
+    Version: require('./package.json').version
 };
